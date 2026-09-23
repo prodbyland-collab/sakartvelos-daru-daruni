@@ -14,13 +14,206 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blocks: {
+        Row: {
+          blocked_id: string
+          blocker_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          blocked_id: string
+          blocker_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          blocked_id?: string
+          blocker_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      matches: {
+        Row: {
+          created_at: string
+          id: string
+          user_a: string
+          user_b: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_a: string
+          user_b: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_a?: string
+          user_b?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          match_id: string
+          read_at: string | null
+          sender_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          match_id: string
+          read_at?: string | null
+          sender_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          match_id?: string
+          read_at?: string | null
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string
+          birth_date: string | null
+          city: string | null
+          created_at: string
+          full_name: string
+          gender: string | null
+          height_cm: number | null
+          id: string
+          interests: string[]
+          is_verified: boolean
+          last_seen: string
+          occupation: string | null
+          onboarded: boolean
+          photos: string[]
+          seeking: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string
+          birth_date?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string
+          gender?: string | null
+          height_cm?: number | null
+          id: string
+          interests?: string[]
+          is_verified?: boolean
+          last_seen?: string
+          occupation?: string | null
+          onboarded?: boolean
+          photos?: string[]
+          seeking?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string
+          birth_date?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string
+          gender?: string | null
+          height_cm?: number | null
+          id?: string
+          interests?: string[]
+          is_verified?: boolean
+          last_seen?: string
+          occupation?: string | null
+          onboarded?: boolean
+          photos?: string[]
+          seeking?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          created_at: string
+          details: string | null
+          id: string
+          reason: string
+          reported_id: string
+          reporter_id: string
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason: string
+          reported_id: string
+          reporter_id: string
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason?: string
+          reported_id?: string
+          reporter_id?: string
+        }
+        Relationships: []
+      }
+      swipes: {
+        Row: {
+          created_at: string
+          id: string
+          is_super: boolean
+          liked: boolean
+          swiper_id: string
+          target_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_super?: boolean
+          liked: boolean
+          swiper_id: string
+          target_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_super?: boolean
+          liked?: boolean
+          swiper_id?: string
+          target_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_match_member: {
+        Args: { _match_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
