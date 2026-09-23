@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDiscoverRouteImport } from './routes/_authenticated/discover'
 import { Route as AuthenticatedLikesRouteImport } from './routes/_authenticated/likes'
 import { Route as AuthenticatedMatchesRouteImport } from './routes/_authenticated/matches'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedChatMatchIdRouteImport } from './routes/_authenticated/chat.$matchId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -46,6 +47,11 @@ const AuthenticatedMatchesRoute = AuthenticatedMatchesRouteImport.update({
   path: '/matches',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedChatMatchIdRoute =
   AuthenticatedChatMatchIdRouteImport.update({
     id: '/chat/$matchId',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/discover': typeof AuthenticatedDiscoverRoute
   '/likes': typeof AuthenticatedLikesRoute
   '/matches': typeof AuthenticatedMatchesRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/chat/$matchId': typeof AuthenticatedChatMatchIdRoute
 }
 export interface FileRoutesByTo {
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/discover': typeof AuthenticatedDiscoverRoute
   '/likes': typeof AuthenticatedLikesRoute
   '/matches': typeof AuthenticatedMatchesRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/chat/$matchId': typeof AuthenticatedChatMatchIdRoute
 }
 export interface FileRoutesById {
@@ -77,14 +85,28 @@ export interface FileRoutesById {
   '/_authenticated/discover': typeof AuthenticatedDiscoverRoute
   '/_authenticated/likes': typeof AuthenticatedLikesRoute
   '/_authenticated/matches': typeof AuthenticatedMatchesRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/chat/$matchId': typeof AuthenticatedChatMatchIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/discover' | '/likes' | '/matches' | '/chat/$matchId'
+    | '/'
+    | '/auth'
+    | '/discover'
+    | '/likes'
+    | '/matches'
+    | '/profile'
+    | '/chat/$matchId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/discover' | '/likes' | '/matches' | '/chat/$matchId'
+  to:
+    | '/'
+    | '/auth'
+    | '/discover'
+    | '/likes'
+    | '/matches'
+    | '/profile'
+    | '/chat/$matchId'
   id:
     | '__root__'
     | '/'
@@ -93,6 +115,7 @@ export interface FileRouteTypes {
     | '/_authenticated/discover'
     | '/_authenticated/likes'
     | '/_authenticated/matches'
+    | '/_authenticated/profile'
     | '/_authenticated/chat/$matchId'
   fileRoutesById: FileRoutesById
 }
@@ -146,6 +169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMatchesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/chat/$matchId': {
       id: '/_authenticated/chat/$matchId'
       path: '/chat/$matchId'
@@ -160,6 +190,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDiscoverRoute: typeof AuthenticatedDiscoverRoute
   AuthenticatedLikesRoute: typeof AuthenticatedLikesRoute
   AuthenticatedMatchesRoute: typeof AuthenticatedMatchesRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedChatMatchIdRoute: typeof AuthenticatedChatMatchIdRoute
 }
 
@@ -167,6 +198,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDiscoverRoute: AuthenticatedDiscoverRoute,
   AuthenticatedLikesRoute: AuthenticatedLikesRoute,
   AuthenticatedMatchesRoute: AuthenticatedMatchesRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedChatMatchIdRoute: AuthenticatedChatMatchIdRoute,
 }
 
